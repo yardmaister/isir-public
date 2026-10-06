@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dlužníci – Firmy v insolvenci</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="index.html">Firmy v insolvenci</a>
+    <nav>
+      <a href="index.html">Řízení</a>
+      <a href="dluznici.html">Dlužníci</a>
+      <a href="spravci.html">Správci</a>
+      <a class="ext" href="../index.html">Všechna nová řízení →</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+<h1>Dlužníci</h1>
+<div class="card filters">
+  <label>Okres<select id="f-okres"><option value="">Všechny okresy</option></select></label>
+  <label>Probíhající řízení<select id="f-aktivni"><option value="">Vše</option><option value="true">Ano</option><option value="false">Ne</option></select></label>
+  <button class="btn" id="f-reset" type="button">Reset</button>
+</div>
+<div class="card table-card">
+  <div class="table-header">
+    <span class="count" id="count"></span>
+    <input class="search" type="search" id="f-q" placeholder="Hledat název, IČO, město…">
+  </div>
+  <div class="scroll">
+    <table>
+      <thead><tr>
+<th data-sort="nazev">Název <span class="sort">↕</span></th><th data-sort="ic">IČO <span class="sort">↕</span></th><th data-sort="mesto">Sídlo <span class="sort">↕</span></th><th data-sort="okres">Okres <span class="sort">↕</span></th><th data-sort="pocet">Řízení <span class="sort">↕</span></th><th data-sort="aktivni">Probíhající <span class="sort">↕</span></th><th data-sort="posledni">Poslední zahájení <span class="sort">↕</span></th>      </tr></thead>
+      <tbody id="tbody"><tr><td colspan="7" class="empty">Načítám…</td></tr></tbody>
+    </table>
+  </div>
+  <div class="pagination" id="pagination"></div>
+</div></main>
+<footer class="wrap">Zdroj: Insolvenční rejstřík (isir.justice.cz) · řízení právnických osob zahájená od 1. 1. 2026</footer>
+<script>
+window.FILTR = {
+  data: 'data/dluznici.json', sort: ['posledni', false],
+  search: ['nazev', 'ic', 'mesto'],
+  filters: [{id: 'f-okres', type: 'select', key: 'okres'}, {id: 'f-aktivni', type: 'bool', key: 'aktivni'}],
+  row: r => `<td><a href="firma/${r.slug}.html">${esc(r.nazev)}</a></td><td>${esc(r.ic)}</td>
+    <td>${esc(r.mesto)}</td><td>${esc(r.okres)}</td><td class="num">${r.pocet}</td><td class="num">${r.aktivni}</td>
+    <td class="nowrap">${fmtDate(r.posledni)}</td>`,
+};
+</script>
+<script src="filtr.js"></script>
+</body>
+</html>

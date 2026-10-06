@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Správci – Firmy v insolvenci</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="index.html">Firmy v insolvenci</a>
+    <nav>
+      <a href="index.html">Řízení</a>
+      <a href="dluznici.html">Dlužníci</a>
+      <a href="spravci.html">Správci</a>
+      <a class="ext" href="../index.html">Všechna nová řízení →</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+<h1>Insolvenční správci</h1>
+<div class="card filters">
+  <label>Aktivní<select id="f-aktivni"><option value="">Vše</option><option value="true">S probíhajícím řízením</option><option value="false">Bez probíhajícího řízení</option></select></label>
+  <button class="btn" id="f-reset" type="button">Reset</button>
+</div>
+<div class="card table-card">
+  <div class="table-header">
+    <span class="count" id="count"></span>
+    <input class="search" type="search" id="f-q" placeholder="Hledat správce, IČO…">
+  </div>
+  <div class="scroll">
+    <table>
+      <thead><tr>
+<th data-sort="nazev">Správce <span class="sort">↕</span></th><th data-sort="ic">IČO <span class="sort">↕</span></th><th data-sort="aktualni">Probíhající řízení <span class="sort">↕</span></th><th data-sort="celkem">Řízení celkem <span class="sort">↕</span></th><th data-sort="posledni">Poslední ustanovení <span class="sort">↕</span></th>      </tr></thead>
+      <tbody id="tbody"><tr><td colspan="5" class="empty">Načítám…</td></tr></tbody>
+    </table>
+  </div>
+  <div class="pagination" id="pagination"></div>
+</div></main>
+<footer class="wrap">Zdroj: Insolvenční rejstřík (isir.justice.cz) · řízení právnických osob zahájená od 1. 1. 2026</footer>
+<script>
+window.FILTR = {
+  data: 'data/spravci.json', sort: ['aktualni', false],
+  search: ['nazev', 'ic'],
+  filters: [{id: 'f-aktivni', type: 'bool', key: 'aktualni'}],
+  row: r => `<td><a href="spravce/${r.slug}.html">${esc(r.nazev)}</a></td><td>${esc(r.ic)}</td>
+    <td class="num">${r.aktualni}</td><td class="num">${r.celkem}</td><td class="nowrap">${fmtDate(r.posledni)}</td>`,
+};
+</script>
+<script src="filtr.js"></script>
+</body>
+</html>

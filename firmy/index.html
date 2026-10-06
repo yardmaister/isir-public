@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Řízení – Firmy v insolvenci</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="index.html">Firmy v insolvenci</a>
+    <nav>
+      <a href="index.html">Řízení</a>
+      <a href="dluznici.html">Dlužníci</a>
+      <a href="spravci.html">Správci</a>
+      <a class="ext" href="../index.html">Všechna nová řízení →</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+<h1>Insolvenční řízení firem</h1>
+<p class="sub">Aktualizováno 06.10.2026 19:56</p>
+<div class="kpi-row">
+  <div class="kpi blue"><div class="value">923</div><div class="label">Řízení celkem</div></div>
+  <div class="kpi amber"><div class="value">677</div><div class="label">Probíhajících</div></div>
+  <div class="kpi red"><div class="value">407</div><div class="label">V konkursu</div></div>
+  <div class="kpi green"><div class="value">215</div><div class="label">Aktivních správců</div></div>
+</div>
+<div class="card filters">
+  <label>Zahájeno od<input type="date" id="f-od"></label>
+  <label>Zahájeno do<input type="date" id="f-do"></label>
+  <label>Soud<select id="f-soud"><option value="">Všechny soudy</option></select></label>
+  <label>Stav<select id="f-stav"><option value="">Všechny stavy</option></select></label>
+  <label>Probíhající<select id="f-aktivni"><option value="">Vše</option><option value="true">Probíhající</option><option value="false">Skončená</option></select></label>
+  <label>Milník<select id="f-milnik"><option value="">Jakýkoli</option></select></label>
+  <label>Správce<select id="f-spravce"><option value="">Všichni správci</option></select></label>
+  <button class="btn" id="f-reset" type="button">Reset</button>
+</div>
+<div class="card table-card">
+  <div class="table-header">
+    <span class="count" id="count"></span>
+    <input class="search" type="search" id="f-q" placeholder="Hledat dlužníka, IČO, spisovou značku, správce…">
+  </div>
+  <div class="scroll">
+    <table>
+      <thead><tr>
+<th data-sort="datum">Zahájeno <span class="sort">↕</span></th><th data-sort="spz">Spis. značka <span class="sort">↕</span></th><th data-sort="dluznik">Dlužník <span class="sort">↕</span></th><th data-sort="ic">IČO <span class="sort">↕</span></th><th data-sort="soud">Soud <span class="sort">↕</span></th><th data-sort="stav">Stav <span class="sort">↕</span></th><th data-sort="spravce">Správce <span class="sort">↕</span></th><th data-sort="posledni">Poslední událost <span class="sort">↕</span></th>      </tr></thead>
+      <tbody id="tbody"><tr><td colspan="8" class="empty">Načítám…</td></tr></tbody>
+    </table>
+  </div>
+  <div class="pagination" id="pagination"></div>
+</div></main>
+<footer class="wrap">Zdroj: Insolvenční rejstřík (isir.justice.cz) · řízení právnických osob zahájená od 1. 1. 2026</footer>
+<script>
+window.FILTR = {
+  data: 'data/rizeni.json', sort: ['datum', false],
+  search: ['spz', 'dluznik', 'ic', 'spravce'],
+  filters: [
+    {id: 'f-od', type: 'from', key: 'datum'}, {id: 'f-do', type: 'to', key: 'datum'},
+    {id: 'f-soud', type: 'select', key: 'soud'}, {id: 'f-stav', type: 'select', key: 'stav'},
+    {id: 'f-aktivni', type: 'bool', key: 'aktivni'}, {id: 'f-milnik', type: 'multi', key: 'milniky'},
+    {id: 'f-spravce', type: 'select', key: 'spravce'},
+  ],
+  row: r => `<td class="nowrap">${fmtDate(r.datum)}</td>
+    <td class="nowrap"><a href="rizeni/${r.slug}.html">${esc(r.spz)}</a></td>
+    <td><a href="firma/${r.dslug}.html">${esc(r.dluznik)}</a></td>
+    <td>${esc(r.ic)}</td><td>${esc(r.soud)}</td>
+    <td><span class="badge ${r.aktivni ? 'on' : 'off'}">${esc(r.stav)}</span></td>
+    <td>${r.sslug ? `<a href="spravce/${r.sslug}.html">${esc(r.spravce)}</a>` : '–'}</td>
+    <td class="nowrap">${fmtDate(r.posledni)}</td>`,
+};
+</script>
+<script src="filtr.js"></script>
+</body>
+</html>
