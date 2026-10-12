@@ -70,6 +70,9 @@ tr.sub td { color: #777; font-size: 0.8rem; padding-top: 2px; }
 tr.sub td:nth-child(3) { padding-left: 24px; }
 tr.spor td { font-weight: 600; color: #555; background: #fafbfc; }
 td.docs { font-size: 0.8rem; color: #888; }
+td.veritel { min-width: 180px; }
+td.veritel .drive { font-size: 0.78rem; color: #999; }
+.tag { font-size: 0.68rem; font-weight: 700; color: #b45309; background: #fef3c7; border-radius: 10px; padding: 1px 7px; white-space: nowrap; }
 details[open] summary { margin-bottom: 12px; }
 .pagination { display: flex; justify-content: center; gap: 6px; margin-top: 14px; flex-wrap: wrap; }
 .pagination button { border: 1px solid #dde1e7; background: #fff; border-radius: 6px; padding: 5px 10px; font-size: 0.82rem; cursor: pointer; color: #555; }
