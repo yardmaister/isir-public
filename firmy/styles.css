@@ -63,6 +63,13 @@ tr.past td { color: #888; }
 .pm { color: #15803d; font-size: 0.78rem; margin-left: 6px; white-space: nowrap; }
 @media (max-width: 700px) { .timeline li { grid-template-columns: 1fr; gap: 4px; } }
 details summary { cursor: pointer; font-weight: 600; color: #555; }
+details.spis summary .count { font-weight: 400; color: #999; font-size: 0.82rem; margin-left: 6px; }
+tbody.polozka { border-top: 1px solid #eef0f4; }
+tbody.polozka tr { border-bottom: none; }
+tr.sub td { color: #777; font-size: 0.8rem; padding-top: 2px; }
+tr.sub td:nth-child(3) { padding-left: 24px; }
+tr.spor td { font-weight: 600; color: #555; background: #fafbfc; }
+td.docs { font-size: 0.8rem; color: #888; }
 details[open] summary { margin-bottom: 12px; }
 .pagination { display: flex; justify-content: center; gap: 6px; margin-top: 14px; flex-wrap: wrap; }
 .pagination button { border: 1px solid #dde1e7; background: #fff; border-radius: 6px; padding: 5px 10px; font-size: 0.82rem; cursor: pointer; color: #555; }
