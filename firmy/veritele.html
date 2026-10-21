@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Věřitelé – Firmy v insolvenci</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="index.html">Firmy v insolvenci</a>
+    <nav>
+      <a href="index.html">Řízení</a>
+      <a href="dluznici.html">Dlužníci</a>
+      <a href="spravci.html">Správci</a>
+      <a href="veritele.html">Věřitelé</a>
+      <a class="ext" href="../index.html">Všechna nová řízení →</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+<h1>Věřitelé</h1>
+<p class="sub">Věřitelé, kteří přihlásili pohledávky do insolvenčních řízení firem. U fyzických osob se uvádí jen jméno.</p>
+<div class="card filters">
+  <label>Typ<select id="f-typ"><option value="">Všichni</option></select></label>
+  <label>Navrhovatel<select id="f-navrh"><option value="">Vše</option><option value="true">Podal insolvenční návrh</option></select></label>
+  <button class="btn" id="f-reset" type="button">Reset</button>
+</div>
+<div class="card table-card">
+  <div class="table-header">
+    <span class="count" id="count"></span>
+    <input class="search" type="search" id="f-q" placeholder="Hledat věřitele, IČO…">
+  </div>
+  <div class="scroll">
+    <table>
+      <thead><tr>
+<th data-sort="nazev">Věřitel <span class="sort">↕</span></th><th data-sort="ic">IČO <span class="sort">↕</span></th><th data-sort="typ">Typ <span class="sort">↕</span></th><th data-sort="rizeni">Řízení <span class="sort">↕</span></th><th data-sort="prihlasky">Přihlášky <span class="sort">↕</span></th><th data-sort="navrhy">Návrhy <span class="sort">↕</span></th><th data-sort="posledni">Poslední přihláška <span class="sort">↕</span></th>      </tr></thead>
+      <tbody id="tbody"><tr><td colspan="7" class="empty">Načítám…</td></tr></tbody>
+    </table>
+  </div>
+  <div class="pagination" id="pagination"></div>
+</div></main>
+<footer class="wrap">Zdroj: Insolvenční rejstřík (isir.justice.cz) · řízení právnických osob zahájená od 1. 1. 2026</footer>
+<script>
+window.FILTR = {
+  data: 'data/veritele.json', sort: ['rizeni', false],
+  search: ['nazev', 'ic'],
+  filters: [{id: 'f-typ', type: 'select', key: 'typ'}, {id: 'f-navrh', type: 'bool', key: 'navrhy'}],
+  row: r => `<td><a href="veritel/${r.slug}.html">${esc(r.nazev)}</a></td><td>${esc(r.ic)}</td><td>${esc(r.typ)}</td>
+    <td class="num">${r.rizeni}</td><td class="num">${r.prihlasky}</td><td class="num">${r.navrhy || ''}</td>
+    <td class="nowrap">${fmtDate(r.posledni)}</td>`,
+};
+</script>
+<script src="filtr.js"></script>
+</body>
+</html>
