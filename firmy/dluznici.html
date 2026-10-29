@@ -44,9 +44,9 @@
 <script>
 window.FILTR = {
   data: 'data/dluznici.json', sort: ['posledni', false],
-  search: ['nazev', 'ic', 'mesto'],
+  search: ['nazev', 'ic', 'mesto', 'drive'],
   filters: [{id: 'f-okres', type: 'select', key: 'okres'}, {id: 'f-aktivni', type: 'bool', key: 'aktivni'}],
-  row: r => `<td><a href="firma/${r.slug}.html">${esc(r.nazev)}</a></td><td>${esc(r.ic)}</td>
+  row: r => `<td><a href="firma/${r.slug}.html">${esc(r.nazev)}</a>${r.drive ? `<div class="drive">dříve ${esc(r.drive)}</div>` : ''}</td><td>${esc(r.ic)}</td>
     <td>${esc(r.mesto)}</td><td>${esc(r.okres)}</td><td class="num">${r.pocet}</td><td class="num">${r.aktivni}</td>
     <td class="nowrap">${fmtDate(r.posledni)}</td>`,
 };
